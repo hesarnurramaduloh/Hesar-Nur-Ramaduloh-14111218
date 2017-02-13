@@ -1,12 +1,49 @@
 <?php
-include_once 'koneksi.php';
-	if (isset ($_get ['delete_id'])){
-		$sql_query = "DELETE FROM barang where Kdbarang"; $_get['delete_id'];
-		mysql_query (sql_query);
-		header ("location : $_server[php_self]");
+session_start();
+include 'koneksi.php';
+	
+	if (isset ($_post['login'])){
+	$username = $_post['username'];
+	$password = sha1($_post['password']);
+	
+	$sqlquery = "select * from login where username = '$username' and password = '$password'";
+	
+	if (mysql_query ($sqlquery)){
+		$num_rows = mysql_num_rows (mysql_query($sqlquery));
+		if ($num_rows == 1) {
+			$session ['username'] = $username;
+
+			?>
+	<SCRIPT type = "text/JAVASCRIPT">
+	alert " Anda Berhasil Masuk";
+	window.location.href = "halaman_awal.php";	
+	</SCRIPT>
+		<?php } else
+			{
+	?>
+	<SCRIPT type = "text/JAVASCRIPT">
+	alert (" username dan password anda salah");
+	window.location.href = "index.php";	
+	</SCRIPT>
+	<?php } 
+	{
+	?>
+	<SCRIPT type = "text / JAVASCRIPT">
+	alert ("Terjadi Error");
+	window.location.href = "index.php";	
+	</SCRIPT>
+	<?php } 
+	}
+	if (isset ($_post ['batal'])){	
+	?>
+	<SCRIPT type = "text / JAVASCRIPT">
+	window.location.href = "index.php";	
+	</SCRIPT>
+	<?php } 
 	}
 	?>
-
+	
+	
 <!DOCTYPE html>
 <html>
 <html>
@@ -46,18 +83,6 @@ overflow; hidden;
 </style>
 </head>
 <body>
-<script>
-function edit_id (id){
-	if (confirm ('yakin akan mengedit')){
-		windows.location.href = 'edit.php?edit_id ='+ id;
-		}
-	}
-function delete_id (id){
-	if (confirm ('yakin akan menghapus')){
-		windows.location.href = 'index.php?delete_id' = '+id';
-}
-}
-</script>
 
 
 <div class-"container">
@@ -66,7 +91,7 @@ function delete_id (id){
 <h3>(Create Read Update Delete)</h3>
 </header>
 
-<nav>
+<!--<nav>
 	<ul>
 	<li><b>MENU</b></li>
 	<li><a href ="#">Menu 1</a></li>
@@ -74,52 +99,28 @@ function delete_id (id){
 	<li><a href ="#">Menu 3</a></li>
 
 	</ul>
-</nav>
+</nav> -->
 
 	</nav>
 	<article>
-		<br></br>
-		<table border="1" width="50%" align="center">
-
-			<td>
-				<th><a href="Tambah.php"><button type="submit">TAMBAH</button></a></th>
-			</td>
-			<td>
-				<th><a href="edit.php"><button type="submit">EDIT</button></a></th>
-			</td>
-			<tr>
-				<td align=center>Kode barang</td>
-				<td align=center>Nama Barang</td>
-				<td align=center>Stok</td>
-				<td align=center>Harga</td>
-				<td align=center>Edit</td>
-				<td align=center>Hapus</td>
-			</tr>
-			<?php
-	$sql_query = "select * FROM barang";
-	$result_set = mysql_query ($sql_query);
-	if (mysql_num_rows($result_set)>0){
-		while ($row = mysql_fetch_row ($result_set)){
-			?>
-			<tr>
-				<td align=center><?php echo $row[0]; ?> </td>
-				<td align=center><?php echo $row[1]; ?> </td>
-				<td align=center><?php echo $row[2]; ?> </td>
-				<td align=center><?php echo $row[3]; ?> </td>
-				<td align=center><a href = "javascript : edit_id(<?php echo $row[0]; ?>)">edit </a></td>
-				<td align=center><a href = "javascript : delete_id(<?php echo $row[0]; ?>)">delete </a></td>
-			</tr>
-	<?php 
-		}
-	}
-	else {
-		?>
+	<form method = "post"
+		<table weidht = "60" align = "center">
 		<tr>
-		<td> colspad = "5" > Data Tidak Ditemukan </td>
+		<th align = "center" colspan = "2">Login<a href = "daftar.php"> daftar </a> </th>
 		</tr>
-	<?php }
-	?>
+		<tr> <br></br>
+			<td> username </td>
+			<td> <input type = "text" name = "username" size = "80"></td>
+		</tr>
+		<tr>
+			<td> <br></br>password </td>
+			<td> <input type = "text" name = "password" size = "80"></td>
+		</tr>
+		<tr>
+			<td colspan = "2" align = "right"> <br></br><input type = "submit" value = "login" name = "login"> <input type = "submit" value = "batal" name = "batal"></td>
+		</tr>
 		</table>
+		</form>
 	</article>
 	
 	
