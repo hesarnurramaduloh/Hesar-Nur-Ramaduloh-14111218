@@ -6,12 +6,12 @@
 		<tr>
 		<th align = "center" colspan = "2">LOGIN </th>
 		</tr>
-		<tr> <br></br>
-			<td> username </td>
+		<tr> 
+			<td> Username </td>
 			<td> <input type = "text" name = "username" size = "80"></td>
 		</tr>
 		<tr>
-			<td> <br></br>password </td>
+			<td> <br></br>Password </td>
 			<td> <input type = "text" name = "password" size = "80"></td>
 		</tr>
 		<tr>
