@@ -12,14 +12,14 @@
 
 	</nav>
 	<article>
+	<form  action="{{url('add_items/action')}}" method="post" enctype="multipart/form-data"  >
+    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
+	<h2 align="center">Tambah Data</h2>	
 		<table border="1" width="75%" align="center">
 			<tr>
-				<th>Tambah Data</th>
-			</tr>
-			<tr>
-				<td align=center>No</td>
+				<td align=center>NIS</td>
 				<td>:</td>
-				<td><input type="text" name="no" size="70"></input></td>
+				<td><input type="text" name="nis" size="70"></input></td>
 			</tr>
 			<tr>
 				<td align=center>Nama</td>
@@ -27,25 +27,15 @@
 				<td><input type="text" name="nama" size="70"></input></td>
 			</tr>
 			<tr>
-				<td align=center>NIM</td>
-				<td>:</td>
-				<td><input type="text" name="nim" size="70"></input></td>
-			</tr>
-			<tr>
 				<td align=center>Alamat</td>
 				<td>:</td>
 				<td><input type="text" name="alamat" size="70"></input></td>
 			</tr>
 			<tr>
-				<td align=center>Aksi</td>
-				<td>:</td>
-				<td><input type="text" name="aksi" size="70"></input></td>
-			</tr>
-			<tr>
 
-				<td colspan="3"><input type="button" value="SIMPAN"></input><input type="button" value="BATAL"></input><a href="{{URL('halamanawal')}}"><button type="submit">KEMBALI</button></a></td>
+				<td colspan="3"><input type="submit" value="SIMPAN"><a href="{{URL('halamanawal')}}"><button type="button">BATAL</button></a></td>
 			</tr>
 		</table>
-	
+		</form>
 	</article>
 @stop

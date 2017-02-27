@@ -6,7 +6,7 @@
 
 <body>
 <div class-"container">
-@include ('templates.header')
+@include('templates.header')
 @yield('content')
 @include('templates.footer')
 </div>

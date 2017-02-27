@@ -8,4 +8,6 @@ class Mahasiswa extends Model
 {
 	protected $table = "siswa";
 	protected $fillable = ['nis','nama', 'alamat'];
+	public $timestamps = false;
 }
+

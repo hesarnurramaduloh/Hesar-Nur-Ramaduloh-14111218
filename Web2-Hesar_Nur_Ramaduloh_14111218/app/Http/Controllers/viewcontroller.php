@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mahasiswa;
+use App\Http\Requests\UpdateRequest;
 
 class viewcontroller extends Controller
 {
@@ -17,16 +19,30 @@ class viewcontroller extends Controller
 	}
      public function haawal()
     {
-        return view ('halamanawal'); 
-    }
-      public function htambah()
-    {
-        return view ('tambah'); 
+        $mahasiswa = Mahasiswa::all();
+        return view('halamanawal', compact('mahasiswa'));
+     
     }
       public function hedit()
     {
-        return view ('edit'); 
+        return view ('edit');    
     }
+
+     public function htambah()
+    {
+        return view ('tambah'); 
+    }
+
+    public function add_action(Request $request)
+    {
+        $mahasiswa             = new Mahasiswa;
+        $mahasiswa->nis        = $request->nis;
+        $mahasiswa->nama       = $request->nama;
+        $mahasiswa->alamat     = $request->alamat;
+        $mahasiswa->save();
+        return redirect('halamanawal');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -34,7 +50,7 @@ class viewcontroller extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -45,8 +61,9 @@ class viewcontroller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
+
 
     /**
      * Display the specified resource.
@@ -65,9 +82,10 @@ class viewcontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+   public function edit($id)
     {
-        //
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        return view('edit', compact('mahasiswa'));
     }
 
     /**
@@ -77,9 +95,16 @@ class viewcontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $mahasiswa              = Mahasiswa::findOrFail($id);
+        $mahasiswa->nis         = $request->nis;
+        $mahasiswa->nama        = $request->nama;
+        $mahasiswa->alamat      = $request->alamat;
+        $mahasiswa->save();
+
+        return redirect('halamanawal');
+        //return redirect('halamanawal')->with('alert-success', 'Data Berhasil Diubah.');
     }
 
     /**
@@ -90,6 +115,8 @@ class viewcontroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $mahasiswa = Mahasiswa::find($id);
+        $mahasiswa -> delete();
+        return redirect('halamanawal')->with('alert-success', 'Data Berhasil Dihapus.');
     }
 }

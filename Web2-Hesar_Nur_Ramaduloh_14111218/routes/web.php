@@ -1,14 +1,17 @@
 <?php
-use App\Mahasiswa;
 
+use App\Mahasiswa;
 route::get ('/', 'viewcontroller@index');
 route::get ('/halamanawal', 'viewcontroller@haawal');
-//route::get ('/tambah', 'viewcontroller@htambah');
-//route::get ('/edit', 'viewcontroller@hedit');
+route::get ('/edit', 'viewcontroller@hedit');
+route::get ('/tambah', 'viewcontroller@htambah');
+Route::post('add_items/action', 'viewcontroller@add_action');
+Route::resource('siswa', 'viewcontroller');
+Auth::routes();
+Route::get('/home', 'HomeController@index');
 
 
-
-route::get('/tambah', function(){
+/*route::get('/tambah', function(){
 $mahasiswa = new Mahasiswa ;
 $mahasiswa -> nis = "11";
 $mahasiswa -> nama = "nda";
@@ -27,9 +30,9 @@ $mahasiswa -> save ();
 route::get('/tampil', function(){
 	$mahasiswa = Mahasiswa::all();
 	foreach ($mahasiswa as $mhs ) {
-		echo "<b>nis</b>         :    ";
+		echo "<b>nis</b>         : ";
 		echo $mhs -> nis;
-		echo "<br> <b>Nama</b>   :   " ;
+		echo "<br> <b>Nama</b>   : " ;
 		echo $mhs -> nama;
 		echo "<br> <b>Alamat</b> : ";
 		echo $mhs -> alamat;
